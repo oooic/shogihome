@@ -30,6 +30,7 @@
       :white-player-byoyomi="clock?.white.byoyomi"
       :next-move-label="t.nextTurn"
       :drop-shadows="!isMobileWebApp()"
+      :show-attack-squares="appSettings.showAttackSquares"
       @resize="onResize"
       @move="onMove"
       @edit="onEdit"
@@ -100,6 +101,10 @@ const emit = defineEmits<{
 
 const store = useStore();
 const appSettings = useAppSettings();
+
+// デバッグ用ログ
+console.log("BoardPane - appSettings.showAttackSquares:", appSettings.showAttackSquares);
+console.log("BoardPane - appSettings:", appSettings);
 
 const onResize = (size: RectSize) => {
   emit("resize", size);

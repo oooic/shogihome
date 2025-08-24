@@ -213,6 +213,8 @@ export const vi: Texts = {
   darkGreen: "Xanh lá đậm",
   dark: "Tối",
   boardLayout: "Bố cục bàn cờ",
+  showAttackSquares: "Hiển thị ô tấn công",
+  showAttackSquaresDescription: "Hiển thị ô bị tấn công bởi quân địch màu đỏ và ô bị tấn công bởi quân mình màu xanh",
   compact: "Gọn",
   portrait: "Dọc",
   piece: "Quân",

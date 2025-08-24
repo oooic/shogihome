@@ -216,143 +216,38 @@ type State = {
   reservedMove: Move | null;
 };
 
-const props = defineProps({
-  layoutType: {
-    type: String as PropType<BoardLayoutType>,
-    required: false,
-    default: BoardLayoutType.STANDARD,
-  },
-  boardImageType: {
-    type: String as PropType<BoardImageType>,
-    required: true,
-  },
-  customBoardImageUrl: {
-    type: String,
-    required: false,
-    default: undefined,
-  },
-  boardImageOpacity: {
-    type: Number,
-    required: false,
-    default: 1.0,
-  },
-  boardGridColor: {
-    type: String,
-    required: false,
-    default: undefined,
-  },
-  pieceImageUrlTemplate: {
-    type: String,
-    required: true,
-  },
-  kingPieceType: {
-    type: String as PropType<KingPieceType>,
-    required: true,
-  },
-  pieceStandImageType: {
-    type: String as PropType<PieceStandImageType>,
-    required: true,
-  },
-  customPieceStandImageUrl: {
-    type: String,
-    required: false,
-    default: undefined,
-  },
-  pieceStandImageOpacity: {
-    type: Number,
-    required: false,
-    default: 1.0,
-  },
-  promotionSelectorStyle: {
-    type: String as PropType<PromotionSelectorStyle>,
-    required: false,
-    default: PromotionSelectorStyle.HORIZONTAL,
-  },
-  boardLabelType: {
-    type: String as PropType<BoardLabelType>,
-    required: true,
-  },
-  maxSize: {
-    type: RectSize,
-    required: true,
-  },
-  position: {
-    type: Object as PropType<ImmutablePosition>,
-    required: true,
-  },
-  lastMove: {
-    type: Object as PropType<Move | null>,
-    required: false,
-    default: null,
-  },
-  candidates: {
-    type: Array as PropType<Move[]>,
-    required: false,
-    default: () => [],
-  },
-  flip: {
-    type: Boolean,
-    required: false,
-  },
-  hideClock: {
-    type: Boolean,
-    required: false,
-    default: false,
-  },
-  mobile: {
-    type: Boolean,
-    required: false,
-    default: false,
-  },
-  allowEdit: {
-    type: Boolean,
-    required: false,
-  },
-  allowMove: {
-    type: Boolean,
-    required: false,
-  },
-  blackPlayerName: {
-    type: String,
-    required: false,
-    default: "先手",
-  },
-  whitePlayerName: {
-    type: String,
-    required: false,
-    default: "後手",
-  },
-  blackPlayerTime: {
-    type: Number,
-    required: false,
-    default: undefined,
-  },
-  blackPlayerByoyomi: {
-    type: Number,
-    required: false,
-    default: undefined,
-  },
-  whitePlayerTime: {
-    type: Number,
-    required: false,
-    default: undefined,
-  },
-  whitePlayerByoyomi: {
-    type: Number,
-    required: false,
-    default: undefined,
-  },
-  nextMoveLabel: {
-    type: String,
-    required: false,
-    default: "手番",
-  },
-  dropShadows: {
-    type: Boolean,
-    required: false,
-    default: true,
-  },
-});
+const props = defineProps<{
+  layoutType?: BoardLayoutType;
+  boardImageType: BoardImageType;
+  customBoardImageUrl?: string;
+  boardImageOpacity: number;
+  boardGridColor?: string;
+  pieceStandImageType: PieceStandImageType;
+  customPieceStandImageUrl?: string;
+  pieceStandImageOpacity: number;
+  promotionSelectorStyle: PromotionSelectorStyle;
+  pieceImageUrlTemplate: string;
+  kingPieceType: KingPieceType;
+  boardLabelType: BoardLabelType;
+  maxSize: RectSize;
+  position: ImmutablePosition;
+  lastMove?: Move | null;
+  candidates: Move[];
+  flip: boolean;
+  hideClock: boolean;
+  mobile: boolean;
+  allowMove: boolean;
+  allowEdit: boolean;
+  blackPlayerName: string;
+  whitePlayerName: string;
+  blackPlayerTime?: number;
+  blackPlayerByoyomi?: number;
+  whitePlayerTime?: number;
+  whitePlayerByoyomi?: number;
+  nextMoveLabel: string;
+  dropShadows: boolean;
+  showAttackSquares?: boolean;
+}>();
 
 const emit = defineEmits<{
   resize: [size: RectSize];
@@ -504,6 +399,7 @@ const config = computed(() => {
     upperSizeLimit: props.maxSize,
     flip: props.flip,
     hideClock: props.hideClock,
+    position: props.showAttackSquares ? props.position : undefined,
   });
 });
 

@@ -208,6 +208,8 @@ export type Texts = {
   darkGreen: string;
   dark: string;
   boardLayout: string;
+  showAttackSquares: string;
+  showAttackSquaresDescription: string;
   compact: string;
   portrait: string;
   piece: string;

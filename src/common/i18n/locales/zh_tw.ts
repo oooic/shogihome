@@ -210,6 +210,8 @@ export const zh_tw: Texts = {
   darkGreen: "深綠",
   dark: "深色主題",
   boardLayout: "棋盤設計",
+  showAttackSquares: "顯示攻擊範圍",
+  showAttackSquaresDescription: "敵方棋子攻擊範圍顯示為紅色，己方棋子攻擊範圍顯示為藍色",
   compact: "緊湊",
   portrait: "直向",
   piece: "棋駒",

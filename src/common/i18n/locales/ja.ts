@@ -213,6 +213,8 @@ export const ja: Texts = {
   darkGreen: "深緑",
   dark: "ダーク",
   boardLayout: "盤レイアウト",
+  showAttackSquares: "効きの表示",
+  showAttackSquaresDescription: "敵のコマが効いている場所を赤、自分のコマが効いている場所を青で表示",
   compact: "コンパクト",
   portrait: "ポートレイト",
   piece: "駒",

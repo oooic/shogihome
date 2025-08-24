@@ -132,6 +132,9 @@ class AppSettingsStore {
   get boardFlipping(): boolean {
     return this.merged.boardFlipping;
   }
+  get showAttackSquares(): boolean {
+    return this.merged.showAttackSquares;
+  }
   get tabPaneType(): TabPaneType {
     return this.merged.tabPaneType;
   }

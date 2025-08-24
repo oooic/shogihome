@@ -8,7 +8,7 @@ import {
   PromotionSelectorStyle,
 } from "@/common/settings/app.js";
 import preloadImage from "@/renderer/assets/preload.js";
-import { Color, PieceType } from "tsshogi";
+import { Color, PieceType, ImmutablePosition } from "tsshogi";
 
 type PieceImages = {
   [color in Color]: {
@@ -31,6 +31,7 @@ export type Config = {
   upperSizeLimit: RectSize;
   flip?: boolean;
   hideClock?: boolean;
+  position?: ImmutablePosition;
 };
 
 export function newConfig(params: {
@@ -47,6 +48,7 @@ export function newConfig(params: {
   upperSizeLimit: RectSize;
   flip?: boolean;
   hideClock?: boolean;
+  position?: ImmutablePosition;
 }): Config {
   const config = {
     boardImageType: params.boardImageType,
@@ -66,6 +68,7 @@ export function newConfig(params: {
     upperSizeLimit: params.upperSizeLimit,
     flip: params.flip,
     hideClock: params.hideClock,
+    position: params.position,
   };
   if (config.boardTextureImage) {
     preloadImage(config.boardTextureImage);

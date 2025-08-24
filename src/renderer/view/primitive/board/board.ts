@@ -1,7 +1,7 @@
 import { BoardImageType, BoardLabelType, PromotionSelectorStyle } from "@/common/settings/app.js";
 import { Config } from "./config.js";
 import { boardParams, commonParams } from "./params.js";
-import { Color, ImmutableBoard, Move, Piece, PieceType, reverseColor, Square } from "tsshogi";
+import { Color, ImmutableBoard, Move, Piece, PieceType, reverseColor, Square, Position, Direction, MoveType, resolveMoveType, movableDirections } from "tsshogi";
 import {
   Board,
   BoardBackground,
@@ -41,6 +41,57 @@ const rankCharMap: { [n: number]: string } = {
   8: "八",
   9: "九",
 };
+
+// 将棋のコマの効きを計算する関数
+function calculateAttackSquares(position: ImmutableBoard, color: Color): Set<number> {
+  const attackSquares = new Set<number>();
+  
+  console.log(`calculateAttackSquares called for color: ${color === Color.BLACK ? 'BLACK' : 'WHITE'}`);
+  
+  // 盤上の各コマについて効きを計算
+  for (const square of position.listNonEmptySquares()) {
+    const piece = position.at(square) as Piece;
+    if (piece.color !== color) {
+      continue;
+    }
+    
+    console.log(`Processing piece ${piece.type} at square ${square.index} (${square.x},${square.y})`);
+    
+    // 各コマの移動可能方向を取得
+    const directions = movableDirections(piece);
+    console.log(`  Directions for ${piece.type}:`, directions);
+    
+    for (const direction of directions) {
+      const moveType = resolveMoveType(piece, direction);
+      
+      switch (moveType) {
+        case MoveType.SHORT: {
+          const to = square.neighbor(direction);
+          if (to.valid) {
+            attackSquares.add(to.index);
+            console.log(`  Added short move to square ${to.index} (${to.x},${to.y})`);
+          }
+          break;
+        }
+        case MoveType.LONG:
+          // 長距離移動（飛車、角、香車など）
+          for (let to = square.neighbor(direction); to.valid; to = to.neighbor(direction)) {
+            attackSquares.add(to.index);
+            console.log(`  Added long move to square ${to.index} (${to.x},${to.y})`);
+            // 他のコマにぶつかったら停止
+            if (position.at(to)) {
+              console.log(`  Stopped at square ${to.index} due to piece`);
+              break;
+            }
+          }
+          break;
+      }
+    }
+  }
+  
+  console.log(`Final attack squares for ${color === Color.BLACK ? 'BLACK' : 'WHITE'}:`, attackSquares);
+  return attackSquares;
+}
 
 export class BoardLayoutBuilder {
   constructor(
@@ -135,7 +186,7 @@ export class BoardLayoutBuilder {
 
   private getPieces(board: ImmutableBoard): BoardPiece[] {
     const pieces: BoardPiece[] = [];
-    board.listNonEmptySquares().forEach((square) => {
+    board.listNonEmptySquares().forEach((square: Square) => {
       const piece = board.at(square) as Piece;
       const id = piece.id + square.index;
       const displayColor = this.config.flip ? reverseColor(piece.color) : piece.color;
@@ -168,7 +219,26 @@ export class BoardLayoutBuilder {
 
   private getSquares(lastMove?: Move | null, pointer?: Square | Piece | null): BoardSquare[] {
     const squares: BoardSquare[] = [];
-    Square.all.forEach((square) => {
+    
+    // 現在の局面の効きを計算
+    const currentPosition = this.config.position;
+    let blackAttackSquares: Set<number> | null = null;
+    let whiteAttackSquares: Set<number> | null = null;
+    
+    // デバッグ用ログ
+    console.log("BoardLayoutBuilder.getSquares - currentPosition:", currentPosition);
+    console.log("BoardLayoutBuilder.getSquares - showAttackSquares enabled:", !!currentPosition);
+    
+    if (currentPosition) {
+      blackAttackSquares = calculateAttackSquares(currentPosition.board, Color.BLACK);
+      whiteAttackSquares = calculateAttackSquares(currentPosition.board, Color.WHITE);
+      
+      // デバッグ用ログ
+      console.log("BoardLayoutBuilder.getSquares - blackAttackSquares:", blackAttackSquares);
+      console.log("BoardLayoutBuilder.getSquares - whiteAttackSquares:", whiteAttackSquares);
+    }
+    
+    Square.all.forEach((square: Square) => {
       const id = square.index;
       const { file } = square;
       const { rank } = square;
@@ -188,7 +258,42 @@ export class BoardLayoutBuilder {
         width: width + "px",
         height: height + "px",
       };
-      let backgroundStyle = style;
+      let backgroundStyle: { [key: string]: string } = style;
+      
+      // 効きの表示
+      if (blackAttackSquares && whiteAttackSquares) {
+        const isBlackAttack = blackAttackSquares.has(square.index);
+        const isWhiteAttack = whiteAttackSquares.has(square.index);
+        
+        // デバッグ用ログ（最初の数マスのみ）
+        if (square.index < 5) {
+          console.log(`Square ${square.index} (${file},${rank}): black=${isBlackAttack}, white=${isWhiteAttack}`);
+        }
+        
+        if (isBlackAttack && isWhiteAttack) {
+          // 両方のコマが効いている場合は紫
+          backgroundStyle = {
+            ...backgroundStyle,
+            backgroundColor: "#800080",
+            opacity: "0.6",
+          };
+        } else if (isBlackAttack) {
+          // 先手（黒）のコマが効いている場合は青
+          backgroundStyle = {
+            ...backgroundStyle,
+            backgroundColor: "#0000ff",
+            opacity: "0.4",
+          };
+        } else if (isWhiteAttack) {
+          // 後手（白）のコマが効いている場合は赤
+          backgroundStyle = {
+            ...backgroundStyle,
+            backgroundColor: "#ff0000",
+            opacity: "0.4",
+          };
+        }
+      }
+      
       if (lastMove && square.equals(lastMove.to)) {
         backgroundStyle = {
           ...backgroundStyle,

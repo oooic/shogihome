@@ -213,6 +213,8 @@ export const en: Texts = {
   darkGreen: "Dark Green",
   dark: "Dark",
   boardLayout: "Board Layout",
+  showAttackSquares: "Show Attack Squares",
+  showAttackSquaresDescription: "Show enemy piece attacks in red and own piece attacks in blue",
   compact: "Compact",
   portrait: "Portrait",
   piece: "Piece",
