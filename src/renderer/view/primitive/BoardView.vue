@@ -247,6 +247,7 @@ const props = defineProps<{
   nextMoveLabel: string;
   dropShadows: boolean;
   showAttackSquares?: boolean;
+  showLastMoveHighlight?: boolean;
 }>();
 
 const emit = defineEmits<{
@@ -400,6 +401,7 @@ const config = computed(() => {
     flip: props.flip,
     hideClock: props.hideClock,
     position: props.showAttackSquares ? props.position : undefined,
+    showLastMoveHighlight: props.showLastMoveHighlight,
   });
 });
 

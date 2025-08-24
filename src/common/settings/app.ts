@@ -195,6 +195,7 @@ export type AppSettings = {
   // Board View
   boardFlipping: boolean;
   showAttackSquares: boolean;
+  showLastMoveHighlight: boolean;
 
   // Tab View
   tabPaneType: TabPaneType;
@@ -352,7 +353,8 @@ export function defaultAppSettings(opt?: {
     clockSoundTarget: ClockSoundTarget.ONLY_USER,
     recordShortcutKeys: RecordShortcutKeys.VERTICAL,
     boardFlipping: false,
-    showAttackSquares: true,
+    showAttackSquares: false,
+    showLastMoveHighlight: true,
     tabPaneType: TabPaneType.DOUBLE_V2,
     tab: Tab.RECORD_INFO,
     tab2: Tab.CHART,

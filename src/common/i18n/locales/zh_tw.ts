@@ -212,6 +212,8 @@ export const zh_tw: Texts = {
   boardLayout: "棋盤設計",
   showAttackSquares: "顯示攻擊範圍",
   showAttackSquaresDescription: "敵方棋子攻擊範圍顯示為紅色，己方棋子攻擊範圍顯示為藍色",
+  showLastMoveHighlight: "顯示最後移動高亮",
+  showLastMoveHighlightDescription: "用綠色高亮顯示最後移動棋子的原位置和目標位置",
   compact: "緊湊",
   portrait: "直向",
   piece: "棋駒",

@@ -210,6 +210,8 @@ export type Texts = {
   boardLayout: string;
   showAttackSquares: string;
   showAttackSquaresDescription: string;
+  showLastMoveHighlight: string;
+  showLastMoveHighlightDescription: string;
   compact: string;
   portrait: string;
   piece: string;

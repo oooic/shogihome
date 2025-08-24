@@ -294,18 +294,22 @@ export class BoardLayoutBuilder {
         }
       }
       
-      if (lastMove && square.equals(lastMove.to)) {
-        backgroundStyle = {
-          ...backgroundStyle,
-          ...boardParams.highlight.lastMoveTo,
-        };
+      // 移動前後のハイライト（設定が有効な場合のみ）
+      if (this.config.showLastMoveHighlight) {
+        if (lastMove && square.equals(lastMove.to)) {
+          backgroundStyle = {
+            ...backgroundStyle,
+            ...boardParams.highlight.lastMoveTo,
+          };
+        }
+        if (lastMove && lastMove.from instanceof Square && square.equals(lastMove.from)) {
+          backgroundStyle = {
+            ...backgroundStyle,
+            ...boardParams.highlight.lastMoveFrom,
+          };
+        }
       }
-      if (lastMove && lastMove.from instanceof Square && square.equals(lastMove.from)) {
-        backgroundStyle = {
-          ...backgroundStyle,
-          ...boardParams.highlight.lastMoveFrom,
-        };
-      }
+      
       if (pointer instanceof Square && pointer.equals(square)) {
         backgroundStyle = {
           ...backgroundStyle,

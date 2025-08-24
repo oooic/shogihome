@@ -215,6 +215,8 @@ export const en: Texts = {
   boardLayout: "Board Layout",
   showAttackSquares: "Show Attack Squares",
   showAttackSquaresDescription: "Show enemy piece attacks in red and own piece attacks in blue",
+  showLastMoveHighlight: "Show Last Move Highlight",
+  showLastMoveHighlightDescription: "Highlight the previous and current positions of the last moved piece in green",
   compact: "Compact",
   portrait: "Portrait",
   piece: "Piece",

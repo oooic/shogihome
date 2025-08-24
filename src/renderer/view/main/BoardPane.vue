@@ -31,6 +31,7 @@
       :next-move-label="t.nextTurn"
       :drop-shadows="!isMobileWebApp()"
       :show-attack-squares="appSettings.showAttackSquares"
+      :show-last-move-highlight="appSettings.showLastMoveHighlight"
       @resize="onResize"
       @move="onMove"
       @edit="onEdit"

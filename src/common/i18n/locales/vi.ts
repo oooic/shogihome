@@ -215,6 +215,8 @@ export const vi: Texts = {
   boardLayout: "Bố cục bàn cờ",
   showAttackSquares: "Hiển thị ô tấn công",
   showAttackSquaresDescription: "Hiển thị ô bị tấn công bởi quân địch màu đỏ và ô bị tấn công bởi quân mình màu xanh",
+  showLastMoveHighlight: "Hiển thị đánh dấu nước đi cuối",
+  showLastMoveHighlightDescription: "Đánh dấu vị trí cũ và mới của quân cờ vừa di chuyển bằng màu xanh lá",
   compact: "Gọn",
   portrait: "Dọc",
   piece: "Quân",

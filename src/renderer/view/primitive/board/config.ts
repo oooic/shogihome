@@ -32,6 +32,7 @@ export type Config = {
   flip?: boolean;
   hideClock?: boolean;
   position?: ImmutablePosition;
+  showLastMoveHighlight?: boolean;
 };
 
 export function newConfig(params: {
@@ -49,6 +50,7 @@ export function newConfig(params: {
   flip?: boolean;
   hideClock?: boolean;
   position?: ImmutablePosition;
+  showLastMoveHighlight?: boolean;
 }): Config {
   const config = {
     boardImageType: params.boardImageType,
@@ -69,6 +71,7 @@ export function newConfig(params: {
     flip: params.flip,
     hideClock: params.hideClock,
     position: params.position,
+    showLastMoveHighlight: params.showLastMoveHighlight,
   };
   if (config.boardTextureImage) {
     preloadImage(config.boardTextureImage);

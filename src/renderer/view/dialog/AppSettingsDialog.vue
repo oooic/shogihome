@@ -92,6 +92,12 @@
           <ToggleButton v-model:value="update.showAttackSquares" />
           <div class="form-item-small-label">({{ t.showAttackSquaresDescription }})</div>
         </div>
+        <!-- 移動前後のハイライト -->
+        <div class="form-item">
+          <div class="form-item-label-wide">{{ t.showLastMoveHighlight }}</div>
+          <ToggleButton v-model:value="update.showLastMoveHighlight" />
+          <div class="form-item-small-label">({{ t.showLastMoveHighlightDescription }})</div>
+        </div>
         <!-- 駒画像 -->
         <div class="form-item">
           <div class="form-item-label-wide">{{ t.piece }}</div>
@@ -855,6 +861,7 @@ const update = ref({
   logLevel: org.logLevel,
   enableHardwareAcceleration: org.enableHardwareAcceleration,
   showAttackSquares: org.showAttackSquares,
+  showLastMoveHighlight: org.showLastMoveHighlight,
 });
 const versionStatus = ref({} as VersionStatus);
 

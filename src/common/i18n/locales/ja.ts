@@ -215,6 +215,8 @@ export const ja: Texts = {
   boardLayout: "盤レイアウト",
   showAttackSquares: "効きの表示",
   showAttackSquaresDescription: "敵のコマが効いている場所を赤、自分のコマが効いている場所を青で表示",
+  showLastMoveHighlight: "移動前後のハイライト",
+  showLastMoveHighlightDescription: "最後の手で移動したコマの元の位置と移動先を緑でハイライト",
   compact: "コンパクト",
   portrait: "ポートレイト",
   piece: "駒",
